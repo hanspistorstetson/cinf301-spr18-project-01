@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+
+<h3>BFS</h3>
+<div class="container">
+    <div id="container-bfs" class="puzzle"></div>
+    <br>
+    <button id="shuffle">Shuffle</button>
+    <button id="solve">Solve</button>
+</div>
+
+
+
+<script src="jquery.js"></script>
+<script src="puzzle.js"></script>
+<script src="puzzle-animation.js"></script>
+<script>
+    $(document).ready(function(){
+        new PuzzleGUI($("#container-bfs"), 3, 50, 5, 100, 10);
+    });
+</script>
+</body>
+</html>
