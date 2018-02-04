@@ -430,7 +430,7 @@ Puzzle.prototype.solveAOutOfPlace = function () {
         var children = state.visit();
         for (i = 0; i < children.length; i++) {
             var child = children[i];
-            var f = child.g() + child.hOutOfPlace();
+            var f = child.g() + child.misplacedTiles();
             states.push({puzzle: child, distance: f});
         }
     }
@@ -452,7 +452,7 @@ Puzzle.prototype.solveAManhattan = function () {
         var children = state.visit();
         for (i = 0; i < children.length; i++) {
             var child = children[i];
-            var f = child.g() + child.hManhattan();
+            var f = child.g() + child.manhattanDistance();
             states.push({puzzle: child, distance: f});
         }
     }
@@ -462,7 +462,7 @@ Puzzle.prototype.g = function () {
     return this.path.length;
 }
 
-Puzzle.prototype.hOutOfPlace = function () {
+Puzzle.prototype.misplacedTiles = function () {
     var count = 0;
     for (var i = 0; i < this.dimension; i++) {
         for (var j = 0; j < this.dimension; j++) {
@@ -477,7 +477,7 @@ Puzzle.prototype.hOutOfPlace = function () {
     return count;
 };
 
-Puzzle.prototype.hManhattan = function () {
+Puzzle.prototype.manhattanDistance = function () {
     var distance = 0;
     for (var i = 0; i < this.dimension; i++) {
         for (var j = 0; j < this.dimension; j++) {
