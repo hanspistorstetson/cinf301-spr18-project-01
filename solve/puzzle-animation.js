@@ -13,7 +13,6 @@ function PuzzleGUI($container, dimension, size, margin, speed, num_shuffles, sol
     this.drawBlocks();
     var self = this;
     var shuffleFunc = function () {
-        console.log("shuffle func");
         $container.parent().find(this.shuffleId).attr("disabled", "disabled");
         $container.parent().find(this.solveId).attr("disabled", "disabled");
         self.shuffle(self.puzzle, self.num_shuffles, function () {
