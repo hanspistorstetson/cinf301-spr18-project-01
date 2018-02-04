@@ -3,27 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="test.css">
 </head>
 <body>
 
-<h3>BFS</h3>
-<div class="container">
-    <div id="container-bfs" class="puzzle"></div>
-    <br>
-    <button id="shuffle">Shuffle</button>
-    <button id="solve">Solve</button>
-</div>
+<div class="container-fluid ">
+    <div class="algorithmDiv">
+        <h1 class="algorithmHeading">BFS</h1>
+        <div class="row justify-content-center">
+            <div id="container-bfs" class="puzzle"></div>
+            <button id="shuffle" class="btn btn-warning btn-lg">Shuffle</button>
+            <button id="solve" class="btn btn-danger btn-lg">Solve</button>
+        </div>
+    </div>
 
+    <div class="algorithmDiv">
+        <h1 class="algorithmHeading">A* Algorithm</h1>
+        <h1 class="algorithmSubHeading">Misplaced Tiles</h1>
+        <div class="row justify-content-center">
+            <div id="container-aout" class="puzzle"></div>
+            <button id="aoutshuffle" class="btn btn-warning btn-lg">Shuffle</button>
+            <button id="aoutsolve" class="btn btn-danger btn-lg">Solve</button>
+        </div>
+    </div>
+
+    <div class="algorithmDiv">
+        <h1 class="algorithmHeading">A* Algorithm</h1>
+        <h2 class="algorithmSubHeading">Manhattan Distance</h2>
+        <div class="row justify-content-center">
+            <div id="container-amanhattan" class="puzzle"></div>
+            <button id="amanhattanshuffle" class="btn btn-warning btn-lg">Shuffle</button>
+            <button id="amanhattansolve" class="btn btn-danger btn-lg">Solve</button>
+        </div>
+    </div>
+</div>
 
 
 <script src="jquery.js"></script>
 <script src="puzzle.js"></script>
 <script src="puzzle-animation.js"></script>
 <script>
-    $(document).ready(function(){
-        new PuzzleGUI($("#container-bfs"), 3, 50, 5, 100, 10);
+    $(document).ready(function () {
+        new PuzzleGUI($("#container-bfs"), 3, 100, 5, 100, 10, Algorithm.BFS, "#shuffle", "#solve");
+        new PuzzleGUI($("#container-aout"), 3, 100, 5, 100, 10, Algorithm.AOutOfPlace, "#aoutshuffle", "#aoutsolve");
+        new PuzzleGUI($("#container-amanhattan"), 3, 100, 5, 100, 10, Algorithm.AManHatten, "#amanhattanshuffle", "#amanhattansolve");
     });
 </script>
 </body>
