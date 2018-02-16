@@ -1,4 +1,7 @@
-function PuzzleGUI($container, dimension, size, margin, speed, num_shuffles, solveFunc, shuffleId, solveId) {
+// Adapted from https://picoledelimao.github.io/js/sliding-puzzle/sliding-puzzle-frontend.js
+
+
+function PuzzleGUI($container, dimension, size, margin, speed, num_shuffles, solveFunc, shuffleId, solveId, wonId) {
     this.$container = $container;
     this.dimension = dimension;
     this.size = size;
@@ -9,6 +12,7 @@ function PuzzleGUI($container, dimension, size, margin, speed, num_shuffles, sol
     this.puzzle = new Puzzle(dimension, solveFunc);
     this.shuffleId = shuffleId;
     this.solveId = solveId;
+    this.wonId = wonId;
 
     this.drawBlocks();
     var self = this;
@@ -23,7 +27,6 @@ function PuzzleGUI($container, dimension, size, margin, speed, num_shuffles, sol
     $container.parent().find(this.shuffleId).on("click", shuffleFunc);
     shuffleFunc();
     $container.parent().find(this.solveId).on("click", function () {
-        console.log("solve func");
         var path = self.puzzle.solve();
         $container.parent().find(this.shuffleId).attr("disabled", "disabled");
         $container.parent().find(this.solveId).attr("disabled", "disabled");
@@ -64,7 +67,6 @@ PuzzleGUI.prototype.drawBlocks = function () {
 }
 
 PuzzleGUI.prototype.move = function (id, direction) {
-    console.log("#" + id);
     var block = this.$container.find("#" + id);
     var distance = this.size + this.margin;
     switch (direction) {
@@ -88,6 +90,14 @@ PuzzleGUI.prototype.move = function (id, direction) {
                 top: "+=" + distance + "px"
             }, this.speed);
             break;
+    }
+
+    if (this.puzzle.isGoalState()) {
+        $(this.wonId).css("color", "green");
+        $(this.wonId).text("You've won!");
+    } else {
+        $(this.wonId).css("color", "red");
+        $(this.wonId).text("You've not won yet!");
     }
 }
 
@@ -116,7 +126,6 @@ PuzzleGUI.prototype.shuffle = function (puzzle, times, callbackFunction, lastMov
 }
 
 PuzzleGUI.prototype.solve = function (puzzle, path, callbackFunction) {
-    console.log("solve");
     if (path.length == 0) {
         callbackFunction();
         return;
@@ -129,3 +138,4 @@ PuzzleGUI.prototype.solve = function (puzzle, path, callbackFunction) {
         self.solve(puzzle, path, callbackFunction);
     }, this.speed);
 }
+

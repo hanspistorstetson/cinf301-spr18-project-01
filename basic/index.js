@@ -1,244 +1,136 @@
-let allBtns = ["button0", "button1", "button2", "button3", "button4", "button5", "button6", "button7", "button8", ];
+let allBtns = [
+  "button0",
+  "button1",
+  "button2",
+  "button3",
+  "button4",
+  "button5",
+  "button6",
+  "button7",
+  "button8"
+];
 
-let puzzle = null;
+function getEmpty() {
+  for (let i = 0; i < 9; i++) {
+    if ($("#" + allBtns[i]).text() == "") {
+      return allBtns[i];
+    }
+  }
+}
 
-function move(tile) {
-    let val = parseInt(document.getElementById(tile).innerText)
-    puzzle.move(val);
-    updateHTML();
+function isMoveable(btnId) {
+  toButtonNumber = [];
+  btnIdNumber = parseInt(btnId[btnId.length - 1]);
+  // The rightside of the board can move up three, down three, or left 1
+  if ([2, 5, 8].includes(btnIdNumber)) {
+    toButtonNumber = [+3, -3, -1];
+  }
+  // The right side of the board can move up three, down three, or right 1
+  if ([0, 3, 6].includes(btnIdNumber)) {
+    toButtonNumber = [+3, -3, +1];
+  }
+  // The Middle of the board can move up three, down three, left 1 and right 1
+  if ([1, 4, 7].includes(btnIdNumber)) {
+    toButtonNumber = [+3, -3, -1, +1];
+  }
+
+  for (let i = 0; i < toButtonNumber.length; i++) {
+    if (btnIdNumber + toButtonNumber[i] == getEmpty()[getEmpty().length - 1]) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function pushTile(tileId) {
+  $("#" + getEmpty()).text($("#" + tileId).text());
+  $("#" + tileId).text("");
+}
+
+function checkState() {
+  for (let i = 0; i < 8; i++) {
+    if ($("#button" + i).text() != i + 1) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function move(tileId) {
+  let emptyTile = getEmpty();
+  if ($("#" + tileId).text() != " ") {
+    let moveable = isMoveable(tileId);
+    pushTile(tileId);
+  }
+  if (checkState()) {
+    $("#solved").text("Solved!");
+  } else {
+    $("#solved").text("");
+  }
 }
 
 function updateHTML() {
-    let board = puzzle.board;
-    for (i = 0; i < puzzle.dimension; i++) {
-        for (j = 0; j < puzzle.dimension; j++) {
-            if (board[i][j] != 0) {
-                document.getElementById("button" + (i * puzzle.dimension + j)).innerHTML = board[i][j];
-            } else {
-                document.getElementById("button" + (i * puzzle.dimension + j)).innerHTML = " ";
-            }
-        }
+  let board = puzzle.board;
+  for (i = 0; i < puzzle.dimension; i++) {
+    for (j = 0; j < puzzle.dimension; j++) {
+      if (board[i][j] != 0) {
+        document.getElementById(
+          "button" + (i * puzzle.dimension + j)
+        ).innerHTML =
+          board[i][j];
+      } else {
+        document.getElementById(
+          "button" + (i * puzzle.dimension + j)
+        ).innerHTML =
+          " ";
+      }
     }
+  }
+}
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 function randomize() {
-    puzzle = new Puzzle(3);
-    let val = "";
-    for (i = 0; i < puzzle.dimension; i++) {
-        for (j = 0; j < puzzle.dimension; j++) {
-            if (puzzle.board[i][j] == 0) {
-                val = " ";
-            } else {
-                val = puzzle.board[i][j];
-            }
-            document.getElementById(allBtns[i * puzzle.dimension + j]).innerHTML = val;
-
-        }
+  do {
+    let nums = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    nums = shuffle(nums);
+    for (let i = 0; i < 9; i++) {
+      if (nums[i] != 0) {
+        $("#button" + i).text(nums[i]);
+      } else {
+        $("#button" + i).text("");
+      }
     }
-
+  } while (!solveable);
 }
 
 function solveable() {
-    inversionCount = 0;
-    var item1, item2;
-    for (i = 0; i < allBtns.length-1; i++) {
-        if (document.getElementById(allBtns[i]).innerHTML == " ") {
-            item1 = 0;
-        } else {
-            item1 = document.getElementById(allBtns[i]).innerHTML;
-        }
-        for (j = i+1; j < allBtns.length; j++) {
-            if (document.getElementById(allBtns[j]).innerHtml == " ") {
-                item2 = 0;
-            } else {
-                item2 = document.getElementById(allBtns[j]).innerHtml;
-            }
-            if (item1 && item2 && item1 > item2) {
-                inversionCount++;
-            }
-        }
+  inversionCount = 0;
+  var item1, item2;
+  for (i = 0; i < allBtns.length - 1; i++) {
+    if (document.getElementById(allBtns[i]).innerHTML == " ") {
+      item1 = 0;
+    } else {
+      item1 = document.getElementById(allBtns[i]).innerHTML;
     }
-
-    return inversionCount % 2 == 0;
-}
-
-
-Direction = {
-    LEFT: "left",
-    RIGHT: "right",
-    UP: "up",
-    DOWN: "down"
-};
-function Puzzle(dimension) {
-    this.board = [];
-    this.path = [];
-    this.dimension = dimension;
-    this.lastMove = null;
-    for (var i = 0; i < dimension; i++) {
-        this.board.push([]);
-        for (var j = 0; j < dimension; j++) {
-            if (i == this.dimension - 1 && j == this.dimension - 1) {
-                this.board[i].push(0);
-            } else {
-                this.board[i].push(dimension * i + j + 1);
-            }
-        }
+    for (j = i + 1; j < allBtns.length; j++) {
+      if (document.getElementById(allBtns[j]).innerHtml == " ") {
+        item2 = 0;
+      } else {
+        item2 = document.getElementById(allBtns[j]).innerHtml;
+      }
+      if (item1 && item2 && item1 > item2) {
+        inversionCount++;
+      }
     }
-    let x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    shuffle(x);
-    do {
-        for (i = 0; i < this.dimension; i++) {
-            for (j = 0; j < this.dimension; j++) {
-                this.board[i][j] = x[this.dimension * i + j];
-            }
-        }
-    } while (!solveable());
+  }
 
-};
-
-Puzzle.prototype.getPosition = function(val) {
-    for (var i = 0; i < this.dimension; i++) {
-        for (var j = 0; j < this.dimension; j++) {
-            if (this.board[i][j] == val) {
-                return [i, j];
-            }
-        }
-    }
-};
-
-// Get the (x, y) position of the blank space
-Puzzle.prototype.getBlankSpacePosition = function() {
-    return this.getPosition(0);
-};
-
-// Swap two items on a bidimensional array
-Puzzle.prototype.swap = function(i1, j1, i2, j2) {
-    var temp = this.board[i1][j1];
-    this.board[i1][j1] = this.board[i2][j2];
-    this.board[i2][j2] = temp;
-}
-
-// Return the direction that a piece can be moved, if any
-Puzzle.prototype.getMove = function(piece) {
-    var blankSpacePosition = this.getBlankSpacePosition();
-    var line = blankSpacePosition[0];
-    var column = blankSpacePosition[1];
-    if (line > 0 && piece == this.board[line-1][column]) {
-        return Direction.DOWN;
-    } else if (line < this.dimension - 1 && piece == this.board[line+1][column]) {
-        return Direction.UP;
-    } else if (column > 0 && piece == this.board[line][column-1]) {
-        return Direction.RIGHT;
-    } else if (column < this.dimension - 1 && piece == this.board[line][column+1]) {
-        return Direction.LEFT;
-    }
-};
-
-// Move a piece, if possible, and return the direction that it was moved
-Puzzle.prototype.move = function(piece) {
-    var move = this.getMove(piece);
-    if (move != null) {
-        var blankSpacePosition = this.getBlankSpacePosition();
-        var line = blankSpacePosition[0];
-        var column = blankSpacePosition[1];
-        switch (move) {
-            case Direction.LEFT:
-                this.swap(line, column, line, column + 1);
-                break;
-            case Direction.RIGHT:
-                this.swap(line, column, line, column - 1);
-                break;
-            case Direction.UP:
-                this.swap(line, column, line + 1, column);
-                break;
-            case Direction.DOWN:
-                this.swap(line, column, line - 1, column);
-                break;
-        }
-        if (move != null) {
-            this.lastMove = piece;
-        }
-        return move;
-    }
-};
-
-Puzzle.prototype.isGoalState = function() {
-    for (var i = 0; i < this.dimension; i++) {
-        for (var j = 0; j < this.dimension; j++) {
-            var piece = this.board[i][j];
-            if (piece != 0) {
-                var originalLine = Math.floor((piece - 1) / this.dimension);
-                var originalColumn = (piece - 1) % this.dimension;
-                if (i != originalLine || j != originalColumn) return false;
-            }
-        }
-    }
-    return true;
-};
-
-// Return a copy of current puzzle
-Puzzle.prototype.getCopy = function() {
-    var newPuzzle = new Puzzle(this.dimension);
-    for (var i = 0; i < this.dimension; i++) {
-        for (var j = 0; j < this.dimension; j++) {
-            newPuzzle.board[i][j] = this.board[i][j];
-        }
-    }
-    for (var i = 0; i < this.path.length; i++) {
-        newPuzzle.path.push(this.path[i]);
-    }
-    return newPuzzle;
-};
-
-// Return all current allowed moves
-Puzzle.prototype.getAllowedMoves = function() {
-    var allowedMoves = [];
-    for (var i = 0; i < this.dimension; i++) {
-        for (var j = 0; j < this.dimension; j++) {
-            var piece = this.board[i][j];
-            if (this.getMove(piece) != null) {
-                allowedMoves.push(piece);
-            }
-        }
-    }
-    return allowedMoves;
-};
-
-Puzzle.prototype.visit = function() {
-    var children = [];
-    var allowedMoves = this.getAllowedMoves();
-    for (var i = 0; i < allowedMoves.length; i++)  {
-        var move = allowedMoves[i];
-        if (move != this.lastMove) {
-            var newInstance = this.getCopy();
-            newInstance.move(move);
-            newInstance.path.push(move);
-            children.push(newInstance);
-        }
-    }
-    return children;
-};
-
-Puzzle.prototype.solveBFS = function() {
-    var startingState = this.getCopy();
-    startingState.path = [];
-    var states = [startingState];
-    while (states.length > 0) {
-        var state = states[0];
-        states.shift();
-        if (state.isGoalState()) {
-            return state.path;
-        }
-        states = states.concat(state.visit());
-    }
-};
-
-function shuffle(a) {
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
+  return inversionCount % 2 == 0;
 }

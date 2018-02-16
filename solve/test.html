@@ -10,16 +10,26 @@
 <body>
 
 <div class="container-fluid ">
-    <div class="algorithmDiv">
+
+    <div class="algorithmDiv rounded">
+        <h1 class="algorithmHeading" style="color: #0d4477">Hans Pistor</h1>
+        <hr/>
+        <h3 style="text-align: center">Sliding Puzzle Game</h3>
+    </div>
+
+
+    <div class="algorithmDiv rounded">
         <h1 class="algorithmHeading">BFS</h1>
         <div class="row justify-content-center">
             <div id="container-bfs" class="puzzle"></div>
             <button id="shuffle" class="btn btn-warning btn-lg">Shuffle</button>
             <button id="solve" class="btn btn-danger btn-lg">Solve</button>
         </div>
+        <hr/>
+        <h3 id="bfsWon" style="text-align: center; color: green;">You've won!</h3>
     </div>
 
-    <div class="algorithmDiv">
+    <div class="algorithmDiv rounded">
         <h1 class="algorithmHeading">A* Algorithm</h1>
         <h1 class="algorithmSubHeading">Misplaced Tiles</h1>
         <div class="row justify-content-center">
@@ -27,9 +37,11 @@
             <button id="aoutshuffle" class="btn btn-warning btn-lg">Shuffle</button>
             <button id="aoutsolve" class="btn btn-danger btn-lg">Solve</button>
         </div>
+        <hr/>
+        <h3 id="aoutWon" style="text-align: center; color: green;">You've won!</h3>
     </div>
 
-    <div class="algorithmDiv">
+    <div class="algorithmDiv rounded">
         <h1 class="algorithmHeading">A* Algorithm</h1>
         <h2 class="algorithmSubHeading">Manhattan Distance</h2>
         <div class="row justify-content-center">
@@ -37,6 +49,8 @@
             <button id="amanhattanshuffle" class="btn btn-warning btn-lg">Shuffle</button>
             <button id="amanhattansolve" class="btn btn-danger btn-lg">Solve</button>
         </div>
+        <hr/>
+        <h3 id="amanhattanWon" style="text-align: center; color: green;">You've won!</h3>
     </div>
 </div>
 
@@ -46,9 +60,9 @@
 <script src="puzzle-animation.js"></script>
 <script>
     $(document).ready(function () {
-        new PuzzleGUI($("#container-bfs"), 3, 100, 5, 100, 10, Algorithm.BFS, "#shuffle", "#solve");
-        new PuzzleGUI($("#container-aout"), 3, 100, 5, 100, 10, Algorithm.AOutOfPlace, "#aoutshuffle", "#aoutsolve");
-        new PuzzleGUI($("#container-amanhattan"), 3, 100, 5, 100, 10, Algorithm.AManHatten, "#amanhattanshuffle", "#amanhattansolve");
+        new PuzzleGUI($("#container-bfs"), 3, 100, 5, 100, 10, Algorithm.BFS, "#shuffle", "#solve", "#bfsWon");
+        new PuzzleGUI($("#container-aout"), 3, 100, 5, 100, 10, Algorithm.AOutOfPlace, "#aoutshuffle", "#aoutsolve", "#aoutWon");
+        new PuzzleGUI($("#container-amanhattan"), 3, 100, 5, 100, 10, Algorithm.AManHatten, "#amanhattanshuffle", "#amanhattansolve", "#amanhattanWon");
     });
 </script>
 </body>

@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>8 Puzzle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
     <script type="text/javascript" src="index.js"></script>
 </head>
+
 <body>
     <div class="container rounded">
         <h1 id="heading">Hans Pistor</h1>
-        <br />
+        <br/>
         <div id="puzzle" class="container">
             <div class="row justify-content-md-center justify-content-sm-center">
-                <button id="button0" class="btn btn-secondary custombutton" onclick="move(this.id)"> </button>
-                <button id="button1" class="btn btn-secondary custombutton" onclick="move(this.id)">1</button>
-                <button id="button2" class="btn btn-secondary custombutton" onclick="move(this.id)">2</button>
+                <button id="button0" class="btn btn-secondary custombutton" onclick="move(this.id)">1</button>
+                <button id="button1" class="btn btn-secondary custombutton" onclick="move(this.id)">2</button>
+                <button id="button2" class="btn btn-secondary custombutton" onclick="move(this.id)">3</button>
             </div>
             <div class="row justify-content-md-center justify-content-sm-center">
-                <button id="button3" class="btn btn-secondary custombutton" onclick="move(this.id)">3</button>
-                <button id="button4" class="btn btn-secondary custombutton" onclick="move(this.id)">4</button>
-                <button id="button5" class="btn btn-secondary custombutton" onclick="move(this.id)">5</button>
+                <button id="button3" class="btn btn-secondary custombutton" onclick="move(this.id)">4</button>
+                <button id="button4" class="btn btn-secondary custombutton" onclick="move(this.id)">5</button>
+                <button id="button5" class="btn btn-secondary custombutton" onclick="move(this.id)">6</button>
             </div>
             <div class="row justify-content-md-center justify-content-sm-center">
-                <button id="button6" class="btn btn-secondary custombutton" onclick="move(this.id)">6</button>
-                <button id="button7" class="btn btn-secondary custombutton" onclick="move(this.id)">7</button>
-                <button id="button8" class="btn btn-secondary custombutton" onclick="move(this.id)">8</button>
+                <button id="button6" class="btn btn-secondary custombutton" onclick="move(this.id)">7</button>
+                <button id="button7" class="btn btn-secondary custombutton" onclick="move(this.id)">8</button>
+                <button id="button8" class="btn btn-secondary custombutton" onclick="move(this.id)"></button>
             </div>
         </div>
+        <h1 id="solved" style="color: green"></h1>
 
         <br>
         <button class="btn btn-primary btn-lg" onclick="randomize()">Randomize</button>
-        <button class="btn btn-danger btn-lg" onclick="solve()">Solve</button>
-        <br /><br />
+        <br/>
+        <br/>
         <div class="row reference-container">
             <div class="col reference">
                 <h4>Web</h4>
@@ -43,12 +47,13 @@
             <div class="col reference">
                 <h4>Applications</h4>
             </div>
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-            <script>
-                $(document).ready(randomize());
-            </script>
-    </div>
+            <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+                crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+                crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+                crossorigin="anonymous"></script>
+        </div>
 </body>
+
 </html>
