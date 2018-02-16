@@ -1,38 +1,46 @@
 .container {
-    width: 90%;
-    margin: auto;
-    text-align: center;
-    background-color: #e2e2e2;
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  background-color: #e2e2e2;
 }
 
 #heading {
-    color: #006cdc;
-    font-size: 100px;
+  color: #006cdc;
+  font-size: 100px;
 }
 
 .gamename {
-    color: red;
+  color: red;
 }
 
 .reference {
-    color: #006cdc;
+  color: #006cdc;
 }
 
 .midreference {
-    color: red;
+  color: red;
 }
 
 .name {
-    color: #006cdc;
+  color: #006cdc;
 }
 
 .custombutton {
-    width:100px;
-    height:100px;
-    font-size: 30px;
-    color:#006cdc;
+  width: 100px;
+  height: 100px;
+  font-size: 30px;
+  color: #006cdc;
 }
 
 .reference-container {
-    text-align: center;
+  text-align: center;
+}
+
+#solved {
+  margin: 20px;
+}
+
+#random {
+  margin: 10px;
 }
